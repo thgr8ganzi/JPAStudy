@@ -2,6 +2,7 @@ package com.example.study.repository;
 
 import com.example.study.dto.MemberDto;
 import com.example.study.entity.Member;
+import com.example.study.entity.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -84,6 +85,23 @@ class MemberRepositoryTest {
         System.out.println("i = " + i);
     }
 
+    @Test
+    public void findMemberLazy(){
+        List<Member> members = memberRepository.findMemberFetchJoin();
+        for(Member member3 : members){
+            System.out.println("member.getUsername() = " + member3.getUsername());
+        }
+    }
+
+    @Test
+    public void queryHints(){
+        Member member = memberRepository.findReadOnlyByUsername("member1");
+    }
+
+    @Test
+    public void callCustom(){
+        List<Member> result = memberRepository.findMemberCustom();
+    }
 
 }
 
